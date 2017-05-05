@@ -75,14 +75,16 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-        'default': {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'finalproj',
-        'USER': 'gabriela',
+        'USER': 'super',
+        'HOST': 'gchoy-427.postgres.pythonanywhere-services.com',
+        'PORT': '10427',
+
 
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
