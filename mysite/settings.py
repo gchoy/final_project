@@ -75,13 +75,10 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+        'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'finalproj',
-        'USER': 'super',
-        'HOST': 'gchoy-427.postgres.pythonanywhere-services.com',
-        'PORT': '10427',
-
+        'USER': 'gabriela',
 
     }
 }
@@ -104,6 +101,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+#AUTH_USER_MODEL = 'reviewapp.Profile'
 
 
 # Internationalization
