@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 from .models import Review, Therapist
 from .forms import ReviewForm
 import datetime
@@ -30,7 +31,7 @@ def therapist_detail(request, therapist_id):
     therapist = get_object_or_404(Therapist, pk=therapist_id)
     return render(request, 'reviews/therapist_detail.html', {'therapist': therapist})
 
-
+@login_required
 def add_review(request, therapist_id):
     therapist = get_object_or_404(Therapist, pk=therapist_id)
     form = ReviewForm(request.POST)
@@ -38,6 +39,7 @@ def add_review(request, therapist_id):
         rating = form.cleaned_data['rating']
         comment = form.cleaned_data['comment']
         user_name = form.cleaned_data['user_name']
+        user_name = request.user.username
         review = Review()
         review.therapist = therapist
         review.user_name = user_name
