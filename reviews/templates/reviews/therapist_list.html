@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<h2>Comics List</h2>
+{% endblock %}
+
+
+{% block content %}
+
+{% if therapist_list %}
+<div>
+    {% for therapist in therapist_list %}
+    <div>
+        <h4><a href="{% url 'reviews:therapist_detail' therapist.id %}">
+        {{ therapist.name }}
+        </a></h4>
+        <h5>{{ therapist.review_set.count }} reviews</h5>
+        <h5>{{ therapist.average_rating | floatformat }} average rating</h5>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+    <p>No Physical Therapists are available.</p>
+{% endif %}
+{% endblock %}

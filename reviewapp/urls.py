@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^therapist$', views.therapist_list, name='therapist_list'),
     # ex: /therapists/id/
     url(r'^therapist/(?P<therapist_id>[0-9]+)/$', views.therapist_detail, name='therapist_detail'),
+    url(r'^therapist/(?P<therapist_id>[0-9]+)/add_review/$', views.add_review, name='add_review'),
 ]
