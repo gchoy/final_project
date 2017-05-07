@@ -25,8 +25,8 @@ class CustomUserAdmin(UserAdmin):
 
 class ReviewAdmin(admin.ModelAdmin):
     model = Review
-    list_display = ('therapist', 'rating', 'user_name', 'comment', 'pub_date')
-    list_filter = ['pub_date', 'user_name']
+    list_display = ('therapist','rating', 'user_name', 'comment', 'pub_date')
+    list_filter = ['pub_date', 'user_name','rating']
     search_fields = ['comment']
 
 admin.site.unregister(User)

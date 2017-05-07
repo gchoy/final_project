@@ -78,14 +78,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'finalproj',
-        'USER': 'super',
-        'HOST': 'gchoy-427.postgres.pythonanywhere-services.com',
-        'PORT': '10427',
-
-
+        'USER': 'gabriela',
     }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
