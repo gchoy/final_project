@@ -1,5 +1,5 @@
 <h2><a href="{% url 'reviews:therapist_detail' review.therapist.id %}">{{ review.therapist.name }}</a></h2>
 
-<h4>Rated {{ review.rating }} of 5 by {{ review.user_name }}</h4>
+<h4>Rated {{ review.rating }} of 5 by <a href="{% url 'reviews:user_review_list' review.user_name %}" >{{ review.user_name }}</a></h4>
 <p>{{ review.pub_date }}</p>
 <p>{{ review.comment }}</p>
