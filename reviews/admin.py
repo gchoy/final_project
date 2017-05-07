@@ -6,7 +6,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
 from .models import Therapist, Review   #model therapist may not be needed
-from reviewapp.models import Profile
+from reviews.models import Profile
 
 
 class ProfileInline(admin.StackedInline):

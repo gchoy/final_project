@@ -33,7 +33,7 @@ class Profile(models.Model):
     user_name = models.CharField(max_length=30, blank=True)
     user_title = models.CharField(max_length=30, blank=True)
     user_bio = models.TextField(max_length=500, blank=True)
-    user_type = models.IntegerField(choices=ROLE_CHOICES, null=True, blank=True)
+    user_type = models.IntegerField(choices=ROLE_CHOICES, default=1,null=True, blank=True)
 
     def __str__(self):  # __unicode__ for Python 2
         return self.user.username
@@ -53,7 +53,9 @@ class Review(models.Model):
         (4, '4'),
         (5, '5'),
     )
-    therapist = models.ForeignKey(Therapist)
+    #therapist = models.ForeignKey(User, null=True, related_name=user_type)
+    #patient = models.ForeignKey(User, null=True, related_name="Patient")
+    therapist = models.ForeignKey(Therapist, null=True)
     pub_date = models.DateTimeField('date published')
     user_name = models.CharField(max_length=100)
     comment = models.CharField(max_length=200)
