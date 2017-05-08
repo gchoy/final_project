@@ -16,7 +16,7 @@ def update_clusters():
         for i in range(num_users): # each user corresponds to a row, in the order of all_user_names
             user_reviews = Review.objects.filter(user_name=all_user_names[i])
             for user_review in user_reviews:
-                ratings_m[i,user_review.wine.id] = user_review.rating
+                ratings_m[i,user_review.therapist.id] = user_review.rating
 
         # Perform kmeans clustering
         k = int(num_users / 10) + 2
