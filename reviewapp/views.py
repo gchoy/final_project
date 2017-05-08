@@ -58,6 +58,30 @@ def add_review(request, therapist_id):
 
     return render(request, 'reviews/therapist_detail.html', {'therapist': therapist, 'form': form})
 
+def edit_review(request, therapist_id):
+    therapist = get_object_or_404(Therapist, pk=therapist_id)
+    form = ReviewForm(request.POST)
+    if form.is_valid():
+        rating = form.cleaned_data['rating']
+        comment = form.cleaned_data['comment']
+        user_name = request.user.username
+        review = Review()
+        review.therapist = therapist
+        review.user_name = user_name
+        review.rating = rating
+        review.comment = comment
+        review.pub_date = datetime.datetime.now()
+        review.save()
+        update_clusters()
+        # Always return an HttpResponseRedirect after successfully dealing
+        # with POST data. This prevents data from being posted twice if a
+        # user hits the Back button.
+        return HttpResponseRedirect(reverse('reviews:therapist_detail', args=(therapist.id,)))
+
+    return render(request, 'reviews/therapist_detail.html', {'therapist': therapist, 'form': form})
+
+
+
 def user_review_list(request, username=None):
     if not username:
         username = request.user.username
@@ -67,11 +91,11 @@ def user_review_list(request, username=None):
 
 @login_required
 def user_recommendation_list(request):
-    # get request user reviewed wines
+    # get request user reviewed therapist
     user_reviews = Review.objects.filter(user_name=request.user.username).prefetch_related('therapist')
-    # from the reviews, get a set of wine IDs
+    # from the reviews, get a set of therapist IDs
     user_reviews_therapist_ids = set(map(lambda x: x.therapist.id, user_reviews))
-    # then get a wine list excluding the previous IDs
+    # then get a therapist list excluding the previous IDs
     therapist_list = Therapist.objects.exclude(id__in=user_reviews_therapist_ids)
 
     return render(request, 'reviews/user_recommendation_list.html', {'username': request.user.username, 'therapist_list':therapist_list})

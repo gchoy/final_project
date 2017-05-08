@@ -11,8 +11,11 @@ urlpatterns = [
     # ex: /therapists/id/
     url(r'^therapist/(?P<therapist_id>[0-9]+)/$', views.therapist_detail, name='therapist_detail'),
     url(r'^therapist/(?P<therapist_id>[0-9]+)/add_review/$', views.add_review, name='add_review'),
+    url(r'^therapist/(?P<pk>\d+)/edit/$', views.edit_review, name='edit_review'),
+    url(r'^review/(?P<review_id>[0-9]+)/edit/$', views.edit_review, name='edit_review'),
     # /review/user
     url(r'^review/user/(?P<username>\w+)/$', views.user_review_list, name='user_review_list'),
+    #url(r'^review/user/(?P<username>\w+)/therapist/(?P<therapist_id>[0-9]+)/edit/$', views.edit_review, name='edit_review'),
     url(r'^review/user/$', views.user_review_list, name='user_review_list'),
     url(r'^recommendation/$', views.user_recommendation_list, name='user_recommendation_list'),
 
