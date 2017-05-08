@@ -3,14 +3,31 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
+import datetime
 import numpy as np
 
 
-#May not need Therapist model/table
+
+class Tag(models.Model):
+    tag = models.CharField(max_length=50)
+    def __unicode__(self):
+        return self.tag
+
+
 class Therapist(models.Model):
     name = models.CharField(max_length=200)
+    image = models.ImageField(null=True)
+    tags = models.ManyToManyField(Tag, blank=True)
+    created = models.DateTimeField('created date', default=datetime.datetime.now)
+    users = models.ManyToManyField(User, blank=True)
+    width = models.IntegerField(blank=True, null=True)
+    height = models.IntegerField(blank=True, null=True)
+    # user = models.ForeignKey(User, null=True, blank=True)
+    # rating = average_rating()
 
     def average_rating(self):
         all_ratings = map(lambda x: x.rating, self.review_set.all())
@@ -18,6 +35,14 @@ class Therapist(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def tags_(self):
+        lst = [x[1] for x in self.tags.values_list()]
+        return str(lst.join(','))
+
+    def users_(self):
+        lst = [x[1] for x in self.users.values_list()]
+        return str(lst.join(','))
 
 class Profile(models.Model):
     PATIENT = 1
@@ -54,7 +79,7 @@ class Review(models.Model):
         (5, '5'),
     )
     #therapist = models.ForeignKey(User, null=True, related_name=user_type)
-    #patient = models.ForeignKey(User, null=True, related_name="Patient")
+    patient = models.ForeignKey(User, null=True)
     therapist = models.ForeignKey(Therapist, null=True)
     pub_date = models.DateTimeField('date published')
     user_name = models.CharField(max_length=100)
@@ -68,4 +93,3 @@ class Cluster(models.Model):
 
     def get_members(self):
         return "\n".join([u.username for u in self.users.all()])
-        

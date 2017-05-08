@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
-from .models import Therapist, Review, Cluster   #model therapist may not be needed
+from .models import Therapist, Review, Tag, Cluster
 from reviewapp.models import Profile
 
 
@@ -29,12 +29,23 @@ class ReviewAdmin(admin.ModelAdmin):
     list_filter = ['pub_date', 'user_name','rating']
     search_fields = ['comment']
 
+class TherapistAdmin(admin.ModelAdmin):
+    model = Therapist
+    list_display = ['name']
+    list_filter = ['tags', 'users','tags']
+    search_fields = ['name']
+
+class TagAdmin(admin.ModelAdmin):
+    model = Tag
+    list_display = ['tag']
+
 class ClusterAdmin(admin.ModelAdmin):
     model = Cluster
     list_display = ['name', 'get_members']
 
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
-admin.site.register(Therapist)
+admin.site.register(Therapist, TherapistAdmin)
 admin.site.register(Review, ReviewAdmin)
+admin.site.register(Tag, TagAdmin)
 admin.site.register(Cluster, ClusterAdmin)
