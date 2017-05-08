@@ -13,6 +13,8 @@ from .forms import ReviewForm
 
 import datetime
 
+# def index(request):
+#     return render(request, 'reviews/index.html')
 
 def review_list(request):
     latest_review_list = Review.objects.order_by('-pub_date')[:9]
