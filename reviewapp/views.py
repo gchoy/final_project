@@ -4,9 +4,13 @@ from __future__ import unicode_literals
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from .suggestions import update_clusters
+
 from .models import Review, Therapist
 from .forms import ReviewForm
+
 import datetime
 
 
@@ -46,6 +50,7 @@ def add_review(request, therapist_id):
         review.comment = comment
         review.pub_date = datetime.datetime.now()
         review.save()
+        update_clusters()
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
@@ -62,4 +67,11 @@ def user_review_list(request, username=None):
 
 @login_required
 def user_recommendation_list(request):
-    return render(request, 'reviews/user_recommendation_list.html', {'username': request.user.username})
+    # get request user reviewed wines
+    user_reviews = Review.objects.filter(user_name=request.user.username).prefetch_related('therapist')
+    # from the reviews, get a set of wine IDs
+    user_reviews_therapist_ids = set(map(lambda x: x.therapist.id, user_reviews))
+    # then get a wine list excluding the previous IDs
+    therapist_list = Therapist.objects.exclude(id__in=user_reviews_therapist_ids)
+
+    return render(request, 'reviews/user_recommendation_list.html', {'username': request.user.username, 'therapist_list':therapist_list})
