@@ -10,6 +10,7 @@ from .suggestions import update_clusters
 
 from .models import Review, Therapist
 from .forms import ReviewForm
+from .filters import TherapistFilter
 
 import datetime
 
@@ -77,3 +78,8 @@ def user_recommendation_list(request):
     therapist_list = Therapist.objects.exclude(id__in=user_reviews_therapist_ids)
 
     return render(request, 'reviews/user_recommendation_list.html', {'username': request.user.username, 'therapist_list':therapist_list})
+
+def search(request):
+    t_list = Therapist.objects.all()
+    t_filter = TherapistFilter(request.GET, queryset=t_list)
+    return render(request, 'reviews/t_list.html', {'filter': t_filter})

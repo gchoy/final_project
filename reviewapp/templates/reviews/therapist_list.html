@@ -11,11 +11,14 @@
 <div>
     {% for therapist in therapist_list %}
     <div>
+        <img src="/reviewapp/{{therapist.image}}">
         <h4><a href="{% url 'reviews:therapist_detail' therapist.id %}">
         {{ therapist.name }}
         </a></h4>
         <h5>{{ therapist.review_set.count }} reviews</h5>
         <h5>{{ therapist.average_rating | floatformat }} average rating</h5>
+        <h5>{{therapist.tags}}</h5>
+        <h5>{{therapist.created}}</h5>
     </div>
     {% endfor %}
 </div>

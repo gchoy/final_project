@@ -20,6 +20,8 @@ class Tag(models.Model):
 
 class Therapist(models.Model):
     name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200, null=True)
+    bio = models.TextField(max_length=500, null=True)
     image = models.ImageField(null=True)
     tags = models.ManyToManyField(Tag, blank=True)
     created = models.DateTimeField('created date', default=datetime.datetime.now)
