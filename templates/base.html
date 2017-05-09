@@ -1,6 +1,6 @@
 {% load bootstrap3 %}
-
 {% bootstrap_css %}
+{% load staticfiles %}
 {% bootstrap_javascript %}
 
 {% block bootstrap3_content %}
@@ -13,6 +13,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="{% url 'reviews:therapist_list' %}">Therapist list</a></li>
                 <li><a href="{% url 'reviews:review_list' %}">Home</a></li>
+                <li><a href="{% url 'reviews:search' %}">Search</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
            {% if user.is_authenticated %}

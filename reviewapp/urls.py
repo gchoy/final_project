@@ -1,6 +1,8 @@
 from django.conf.urls import url
 from . import views
 
+
+
 urlpatterns = [
     # ex: /
     url(r'^$', views.review_list, name='review_list'),
@@ -15,5 +17,5 @@ urlpatterns = [
     url(r'^review/user/(?P<username>\w+)/$', views.user_review_list, name='user_review_list'),
     url(r'^review/user/$', views.user_review_list, name='user_review_list'),
     url(r'^recommendation/$', views.user_recommendation_list, name='user_recommendation_list'),
-
+    url(r'^search/$', views.search, name='search'),
 ]

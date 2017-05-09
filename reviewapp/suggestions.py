@@ -9,7 +9,7 @@ def update_clusters():
     update_step = ((num_reviews/100)+1) * 5
     if num_reviews % update_step == 0: # using some magic numbers here, sorry...
         # Create a sparse matrix from user reviews
-        all_user_names = map(lambda x: x.username, User.objects.only("username"))
+        all_user_names = map(lambda x: x.username, User.objects.only("user_name"))
         all_therapist_ids = set(map(lambda x: x.therapist.id, Review.objects.only("therapist")))
         num_users = len(all_user_names)
         ratings_m = dok_matrix((num_users, max(all_therapist_ids)+1), dtype=np.float32)
