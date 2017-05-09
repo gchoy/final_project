@@ -11,7 +11,7 @@
 <div>
     {% for therapist in therapist_list %}
     <div>
-        <img src="/reviewapp/{{therapist.image}}">
+        <!--<img src="/reviewapp/{{therapist.image}}">-->
         <h4><a href="{% url 'reviews:therapist_detail' therapist.id %}">
         {{ therapist.name }}
         </a></h4>
