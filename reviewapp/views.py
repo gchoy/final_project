@@ -74,12 +74,6 @@ def edit_review(request, review_id, username):
             rating = form.cleaned_data['rating']
             comment = form.cleaned_data['comment']
             user_name = request.user.username
-            # review = Review()
-            # review.therapist = therapist
-            # review.user_name = user_name
-            # review.rating = rating
-            # review.comment = comment
-            # review.pub_date = datetime.datetime.now()
             review.save()
             update_clusters()
             return HttpResponseRedirect(reverse('reviews:review_detail', args=(review.id,)))
@@ -104,7 +98,7 @@ def user_recommendation_list(request):
     therapist_list = Therapist.objects.exclude(id__in=user_reviews_therapist_ids)
 
     return render(request, 'reviews/user_recommendation_list.html', {'username': request.user.username, 'therapist_list':therapist_list})
-    
+
 @login_required
 def search(request):
     t_list = Therapist.objects.all()

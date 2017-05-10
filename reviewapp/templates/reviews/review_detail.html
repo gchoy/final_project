@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bootstrap3 %}
 
 {% block title %}
 <h2><a href="{% url 'reviews:therapist_detail' review.therapist.id %}">{{ review.therapist.name }}</a></h2>
@@ -13,6 +14,12 @@
 <form action="{% url 'reviews:edit_review' review.id review.user_name %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Edit" />
+    <!--<input type="submit" value="Edit" />-->
+    {% buttons %}
+    <button type="submit" value = "Edit" class="btn btn-primary">
+      {% bootstrap_icon "pencil" %} Edit
+    </button>
+    {% endbuttons %}
+
 </form>
 {% endblock %}

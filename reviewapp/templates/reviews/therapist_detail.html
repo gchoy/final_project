@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bootstrap3 %}
 
 {% block title %}
 <h2>{{ therapist.name }}</h2>
@@ -30,6 +31,11 @@
 <form action="{% url 'reviews:add_review' therapist.id %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Add" />
+    <!--<input type="submit" value="Add" />-->
+    {% buttons %}
+    <button type="submit" value = "Add" class="btn btn-primary">
+      {% bootstrap_icon "plus" %} Add
+    </button>
+    {% endbuttons %}
 </form>
 {% endblock %}
