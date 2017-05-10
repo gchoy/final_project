@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'reviewapp',
     'registration',
+    'widget_tweaks',
 ]
 
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
