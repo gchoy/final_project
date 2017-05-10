@@ -104,7 +104,8 @@ def user_recommendation_list(request):
     therapist_list = Therapist.objects.exclude(id__in=user_reviews_therapist_ids)
 
     return render(request, 'reviews/user_recommendation_list.html', {'username': request.user.username, 'therapist_list':therapist_list})
-
+    
+@login_required
 def search(request):
     t_list = Therapist.objects.all()
     t_filter = TherapistFilter(request.GET, queryset=t_list)

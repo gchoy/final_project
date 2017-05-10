@@ -84,8 +84,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'finalproj',
-        'USER': 'gabriela',
-
+        'USER': 'super',
+        'HOST': 'gchoy-427.postgres.pythonanywhere-services.com',
+        'PORT': '10427',
 
 
     }
