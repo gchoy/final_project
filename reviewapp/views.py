@@ -61,6 +61,32 @@ def add_review(request, therapist_id):
 
     return render(request, 'reviews/therapist_detail.html', {'therapist': therapist, 'form': form})
 
+@login_required
+def edit_review(request, review_id, username):
+    review = get_object_or_404(Review, pk=review_id)
+    therapist = get_object_or_404(Therapist, pk=review.therapist.id)
+    #therapist = review.therapist.id
+    if request.method == "POST":
+
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            review = form.save(commit=False)
+            rating = form.cleaned_data['rating']
+            comment = form.cleaned_data['comment']
+            user_name = request.user.username
+            # review = Review()
+            # review.therapist = therapist
+            # review.user_name = user_name
+            # review.rating = rating
+            # review.comment = comment
+            # review.pub_date = datetime.datetime.now()
+            review.save()
+            update_clusters()
+            return HttpResponseRedirect(reverse('reviews:review_detail', args=(review.id,)))
+    else:
+        form = ReviewForm(instance=post)
+    return render(request, 'reviews/review_detail.html', {'review': review, 'form': form})
+
 def user_review_list(request, username=None):
     if not username:
         username = request.user.username
@@ -70,15 +96,16 @@ def user_review_list(request, username=None):
 
 @login_required
 def user_recommendation_list(request):
-    # get request user reviewed wines
+    # get request user reviewed therapist
     user_reviews = Review.objects.filter(user_name=request.user.username).prefetch_related('therapist')
-    # from the reviews, get a set of wine IDs
+    # from the reviews, get a set of therapist IDs
     user_reviews_therapist_ids = set(map(lambda x: x.therapist.id, user_reviews))
-    # then get a wine list excluding the previous IDs
+    # then get a therapist list excluding the previous IDs
     therapist_list = Therapist.objects.exclude(id__in=user_reviews_therapist_ids)
 
     return render(request, 'reviews/user_recommendation_list.html', {'username': request.user.username, 'therapist_list':therapist_list})
-
+    
+@login_required
 def search(request):
     t_list = Therapist.objects.all()
     t_filter = TherapistFilter(request.GET, queryset=t_list)
