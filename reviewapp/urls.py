@@ -19,4 +19,5 @@ urlpatterns = [
     url(r'^recommendation/$', views.user_recommendation_list, name='user_recommendation_list'),
     url(r'^search/$', views.search, name='search'),
     url(r'^review/(?P<review_id>[0-9]+)/user/(?P<username>\w+)/edit/$', views.edit_review, name='edit_review'),
+    url(r'^about/$', views.about, name='about'),
 ]

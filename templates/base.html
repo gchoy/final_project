@@ -12,13 +12,14 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="{% url 'reviews:therapist_list' %}">Therapist list</a></li>
-                <li><a href="{% url 'reviews:review_list' %}">Home</a></li>
                 <li><a href="{% url 'reviews:search' %}">Search</a></li>
+                <li><a href="{% url 'reviews:review_list' %}">Home</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
            {% if user.is_authenticated %}
                <li><a href="{% url 'reviews:user_review_list' user.username %}">Hello {{ user.username }}</a></li>
                <li><a href="{% url 'reviews:user_recommendation_list' %}">Physical Therapist suggestions</a></li>
+               <li><a href="{% url 'reviews:about' %}">About</a></li>
                <li><a href="{% url 'auth:logout' %}">Logout</a></li>
                {% else %}
                <li><a href="{% url 'auth:login' %}">Login</a></li>

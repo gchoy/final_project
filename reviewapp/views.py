@@ -38,6 +38,10 @@ def therapist_detail(request, therapist_id):
     therapist = get_object_or_404(Therapist, pk=therapist_id)
     return render(request, 'reviews/therapist_detail.html', {'therapist': therapist})
 
+def about(request):
+    return render(request, 'reviews/about.html')
+
+
 @login_required
 def add_review(request, therapist_id):
     therapist = get_object_or_404(Therapist, pk=therapist_id)
