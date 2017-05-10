@@ -1,18 +1,63 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 
 
-{% block title %}
-<h2>Search</h2>
-{% endblock %}
 
 {% block content %}
-  <form method="get">
-    {{ filter.form.as_p }}
-    <button type="submit">Search</button>
-  </form>
-  <ul>
-  {% for t in filter.qs %}
-    <li>{{ t.name }} - {{ t.get_full_name }}</li>
-  {% endfor %}
-  </ul>
+<form method="get">
+  <div class="well">
+    <h4 style="margin-top: 0">Filter</h4>
+       <div class = "row">
+         <div class="form-group col-sm-4 col-md-3">
+           {{ filter.form.name.label_tag }}
+           {% render_field filter.form.name class="form-control" %}
+         </div>
+         <div class="form-group col-sm-4 col-md-3">
+           {{ filter.form.last_name.label_tag }}
+           {% render_field filter.form.last_name class="form-control" %}
+         </div>
+         <div class="form-group col-sm-8 col-md-6">
+          {{ filter.form.tags }}
+         </div>
+
+       </div>
+       <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-search"></span> Search
+      </button>
+  </div>
+</form>
+
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Last name</th>
+        <th>Date joined</th>
+        <th>Tags</th>
+        <th>Bio</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in filter.qs %}
+        <tr>
+          <td>{{ t.name }}</td>
+          <td>{{ t.last_name }}</td>
+          <td>{{ t.created }}</td>
+          <td>
+            {% for tag in t.groups.all %}
+              {{ tag }}
+            {% empty %}
+              <em class="text-muted">No tag</em>
+            {% endfor %}
+          </td>
+          <td>{{ t.bio}}</td>
+
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">No data</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 {% endblock %}
