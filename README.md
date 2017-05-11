@@ -4,13 +4,13 @@ A simple review and rate app created with Django and Python.
 
 ## Demo
 
-You can find the app hosted on [python anywhere](http://gchoy.pythonanywhere.com/reviews/welcome/) .
+You can find the app hosted on [python anywhere](http://gchoy.pythonanywhere.com/reviews/welcome/).
 
 ## Installing and running locally
 
-1. Install [PostgreSQL](https://www.postgresql.org/)
-2. Create a [virtual env](http://python-guide-pt-br.readthedocs.io/en/latest/dev/virtualenvs/)
-3. Activate the virtual env
+1. Install [PostgreSQL](https://www.postgresql.org/).
+2. Create a [virtual env](http://python-guide-pt-br.readthedocs.io/en/latest/dev/virtualenvs/).
+3. Activate the virtual env.
 4. Use ```pip install``` to install the dependencies listed below within the virtual environment:
 
 ```
@@ -30,7 +30,8 @@ scipy==0.19.0
 sympy==1.0
 Werkzeug==0.12.1
 ```
-5. Once everything is installed run ```python manage.py runserver
+5. Clone the repo.
+6. Once everything is installed run ```python manage.py runserver```.
 
 ## User Stories
 
