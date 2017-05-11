@@ -28,8 +28,6 @@ class Therapist(models.Model):
     users = models.ManyToManyField(User, blank=True)
     width = models.IntegerField(blank=True, null=True)
     height = models.IntegerField(blank=True, null=True)
-    # user = models.ForeignKey(User, null=True, blank=True)
-    # rating = average_rating()
 
     def average_rating(self):
         all_ratings = map(lambda x: x.rating, self.review_set.all())
@@ -53,9 +51,7 @@ class Profile(models.Model):
         (PATIENT, 'Patient'),
         (THERAPIST, 'Therapist'),
     )
-    #identifier = models.CharField(max_length=40, unique=True)
-    #USERNAME_FIELD = 'identifier'
-    #REQUIRED_FIELDS = ('user',)
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     user_name = models.CharField(max_length=30, blank=True)
     user_title = models.CharField(max_length=30, blank=True)
@@ -71,7 +67,7 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
     instance.profile.save()
 
-#Review model/table schemaL
+#Review model/table schema
 class Review(models.Model):
     RATING_CHOICES = (
         (1, '1'),
@@ -80,7 +76,7 @@ class Review(models.Model):
         (4, '4'),
         (5, '5'),
     )
-    #therapist = models.ForeignKey(User, null=True, related_name=user_type)
+    
     patient = models.ForeignKey(User, null=True)
     therapist = models.ForeignKey(Therapist, null=True)
     pub_date = models.DateTimeField('date published')
