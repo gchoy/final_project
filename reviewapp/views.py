@@ -6,11 +6,12 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .suggestions import update_clusters
 
-from .models import Review, Therapist
+
+from .models import Review, Therapist,Cluster
 from .forms import ReviewForm
 from .filters import TherapistFilter
+from .suggestions import update_clusters
 
 import datetime
 
@@ -69,7 +70,6 @@ def add_review(request, therapist_id):
 def edit_review(request, review_id, username):
     review = get_object_or_404(Review, pk=review_id)
     therapist = get_object_or_404(Therapist, pk=review.therapist.id)
-    #therapist = review.therapist.id
     if request.method == "POST":
 
         form = ReviewForm(request.POST, instance=review)
@@ -99,7 +99,34 @@ def user_recommendation_list(request):
     # from the reviews, get a set of therapist IDs
     user_reviews_therapist_ids = set(map(lambda x: x.therapist.id, user_reviews))
     # then get a therapist list excluding the previous IDs
-    therapist_list = Therapist.objects.exclude(id__in=user_reviews_therapist_ids)
+    #therapist_list = Therapist.objects.exclude(id__in=user_reviews_therapist_ids)
+    try:
+        user_cluster_name = \
+            User.objects.get(username=request.user.username).cluster_set.first().name
+    except: # if no cluster has been assigned for a user, update clusters
+        update_clusters()
+        user_cluster_name = \
+            User.objects.get(username=request.user.username).cluster_set.first().name
+
+    # get usernames for other memebers of the cluster
+    user_cluster_other_members = \
+        Cluster.objects.get(name=user_cluster_name).users \
+            .exclude(username=request.user.username).all()
+    other_members_usernames = set(map(lambda x: x.username, user_cluster_other_members))
+
+    # get reviews by those users, excluding wines reviewed by the request user
+    other_users_reviews = \
+        Review.objects.filter(user_name__in=other_members_usernames) \
+            .exclude(therapist__id__in=user_reviews_therapist_ids)
+    other_users_reviews_therapist_ids = set(map(lambda x: x.therapist.id, other_users_reviews))
+
+    # then get a therapist list including the previous IDs, order by rating
+    therapist_list = sorted(
+        list(Therapist.objects.filter(id__in=other_users_reviews_therapist_ids)),
+        key=lambda x: x.average_rating,
+        reverse=True
+    )
+
 
     return render(request, 'reviews/user_recommendation_list.html', {'username': request.user.username, 'therapist_list':therapist_list})
 
