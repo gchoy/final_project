@@ -18,23 +18,24 @@ import datetime
 def welcome(request):
     return render(request, 'reviews/welcome.html')
 
+@login_required
 def review_list(request):
     latest_review_list = Review.objects.order_by('-pub_date')[:9]
     context = {'latest_review_list':latest_review_list}
     return render(request, 'reviews/review_list.html', context)
 
-
+@login_required
 def review_detail(request, review_id):
     review = get_object_or_404(Review, pk=review_id)
     return render(request, 'reviews/review_detail.html', {'review': review})
 
-
+@login_required
 def therapist_list(request):
     therapist_list = Therapist.objects.order_by('-name')
     context = {'therapist_list':therapist_list}
     return render(request, 'reviews/therapist_list.html', context)
 
-
+@login_required
 def therapist_detail(request, therapist_id):
     therapist = get_object_or_404(Therapist, pk=therapist_id)
     return render(request, 'reviews/therapist_detail.html', {'therapist': therapist})
@@ -82,7 +83,8 @@ def edit_review(request, review_id, username):
     else:
         form = ReviewForm(instance=post)
     return render(request, 'reviews/review_detail.html', {'review': review, 'form': form})
-
+    
+@login_required
 def user_review_list(request, username=None):
     if not username:
         username = request.user.username
