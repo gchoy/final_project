@@ -1,11 +1,10 @@
 
-
+/*Welcome Template*/
 #welcome-title {
   text-align: left;
   margin-top: 5%;
   margin-left: 25%;
   color: #336BFF;
-  /*color: #ABBCC5;*/
   font-family: 'Merriweather Sans', sans-serif;
 }
 
@@ -14,4 +13,11 @@
   margin-top: 1%;
   height: 50%;
 
+}
+
+/*About Template*/
+
+#about_title {
+  color: #336BFF;
+  font-family: 'Merriweather Sans', sans-serif;
 }
