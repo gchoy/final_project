@@ -1,5 +1,12 @@
 {% extends 'reviews/therapist_list.html' %}
+{% load bootstrap3 %}
 
 {% block title %}
-<h2>Recommendations for {{ username }}</h2>
+<div class="container">
+  <div class="row">
+    <div class="form-group col-sm-4 col-md-3">
+        <h2>Recommendations for {{ username }}</h2>
+    </div>
+  </div>
+</div>
 {% endblock %}

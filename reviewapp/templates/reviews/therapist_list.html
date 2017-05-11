@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
 
+
 {% block title %}
 <div class="container">
   <div class="row">
@@ -17,6 +18,8 @@
 
 {% if therapist_list %}
 <div class="container">
+  <div class="row">
+    <div class="col-sm-4 col-md-3">
     {% for therapist in therapist_list %}
     <div>
         <!--TODO: Introduce an image here-->
@@ -29,6 +32,8 @@
     </div>
     <hr>
     {% endfor %}
+  </div>
+  </div>
 </div>
 {% else %}
     <p>No Physical Therapists are available.</p>

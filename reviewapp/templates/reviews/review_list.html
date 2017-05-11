@@ -13,17 +13,20 @@
 
 {% block content %}
 {% if latest_review_list %}
-<div class="container">
+<div class="fluid container">
   <div class="row">
-    <div>
+    <div class="form-group col-sm-4 col-md-3">
     {% for review in latest_review_list %}
-    <div>
+    <div class="container">
+      <div class="row">
+        <div class="form-group col-sm-4 col-md-3">
         <h4><a href="{% url 'reviews:review_detail' review.id %}">
         {{ review.therapist.name }}
         </a></h4>
         <p>{{ review.comment }}</p>
         <h6>rated {{ review.rating }} of 5 by <a href="{% url 'reviews:user_review_list' review.user_name %}" >{{ review.user_name }}</a></h6>
-
+      </div>
+     </div>
     </div>
     <hr>
     {% endfor %}
