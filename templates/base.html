@@ -1,7 +1,10 @@
 {% load bootstrap3 %}
 {% bootstrap_css %}
-{% load staticfiles %}
+{% load static %}
 {% bootstrap_javascript %}
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'reviewapp/style.css' %}" />
 
 {% block bootstrap3_content %}
 <div class="container">
