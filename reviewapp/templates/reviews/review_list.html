@@ -1,21 +1,34 @@
 {% extends 'base.html' %}
+{% load bootstrap3 %}
 
 {% block title %}
-<h2>Latest reviews</h2>
+<div class="container">
+  <div class="row">
+    <div>
+      <h2>Latest reviews</h2>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block content %}
 {% if latest_review_list %}
-<div>
+<div class="container">
+  <div class="row">
+    <div>
     {% for review in latest_review_list %}
     <div>
         <h4><a href="{% url 'reviews:review_detail' review.id %}">
         {{ review.therapist.name }}
         </a></h4>
-        <h6>rated {{ review.rating }} of 5 by <a href="{% url 'reviews:user_review_list' review.user_name %}" >{{ review.user_name }}</a></h6>
         <p>{{ review.comment }}</p>
+        <h6>rated {{ review.rating }} of 5 by <a href="{% url 'reviews:user_review_list' review.user_name %}" >{{ review.user_name }}</a></h6>
+
     </div>
+    <hr>
     {% endfor %}
+  </div>
+  </div>
 </div>
 {% else %}
 <p>No reviews are available.</p>

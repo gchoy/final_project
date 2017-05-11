@@ -2,15 +2,35 @@
 {% load bootstrap3 %}
 
 {% block title %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4 col-md-3">
 <h2>{{ therapist.name }}</h2>
+{% if therapist.bio %}
+<h5>{{ therapist.bio}}</h5>
+{% else %}
+<h5>No Bio for this therapist yet</h5>
+{% endif %}
+
 <h5>{{ therapist.review_set.count }} reviews ({{ therapist.average_rating | floatformat }} average rating)</h5>
+</div>
+</div>
+</div>
 {% endblock %}
 
 {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4 col-md-3">
 <h3>Recent reviews</h3>
+</div>
+</div>
+</div>
 
 {% if therapist.review_set.all %}
-<div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4 col-md-3">
     {% for review in therapist.review_set.all %}
     <div>
         <em>{{ review.comment }}</em>
@@ -19,7 +39,10 @@
         Read more
         </a></h5>
     </div>
+    <hr>
     {% endfor %}
+  </div>
+  </div>
 </div>
 {% else %}
 <p>No reviews for this therapist yet</p>

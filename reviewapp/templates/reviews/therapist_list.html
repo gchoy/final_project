@@ -1,25 +1,33 @@
 {% extends 'base.html' %}
+{% load bootstrap3 %}
 
 {% block title %}
-<h2>Therapist List</h2>
+<div class="container">
+  <div class="row">
+    <div>
+   <h2>Therapist List</h2>
+ </div>
+ </div>
+ </div>
+</div>
 {% endblock %}
 
 
 {% block content %}
 
 {% if therapist_list %}
-<div>
+<div class="container">
     {% for therapist in therapist_list %}
     <div>
-        <!--<img src="/reviewapp/{{therapist.image}}">-->
+        <!--TODO: Introduce an image here-->
         <h4><a href="{% url 'reviews:therapist_detail' therapist.id %}">
         {{ therapist.name }}
         </a></h4>
         <h5>{{ therapist.review_set.count }} reviews</h5>
         <h5>{{ therapist.average_rating | floatformat }} average rating</h5>
-        <h5>{{therapist.tags}}</h5>
         <h5>{{therapist.created}}</h5>
     </div>
+    <hr>
     {% endfor %}
 </div>
 {% else %}
