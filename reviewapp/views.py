@@ -94,7 +94,7 @@ def user_review_list(request, username=None):
 
 @login_required
 def user_recommendation_list(request):
-    def user_recommendation_list(request):
+    
     # get request user reviewed therapist
     user_reviews = Review.objects.filter(user_name=request.user.username).prefetch_related('therapist')
     # from the reviews, get a set of therapist IDs
