@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^search/$', views.search, name='search'),
     url(r'^review/(?P<review_id>[0-9]+)/user/(?P<username>\w+)/edit/$', views.edit_review, name='edit_review'),
     url(r'^about/$', views.about, name='about'),
+    url(r'^welcome/$', views.welcome, name='welcome'),
 ]

@@ -15,8 +15,8 @@ from .suggestions import update_clusters
 
 import datetime
 
-# def index(request):
-#     return render(request, 'reviews/index.html')
+def welcome(request):
+    return render(request, 'reviews/welcome.html')
 
 def review_list(request):
     latest_review_list = Review.objects.order_by('-pub_date')[:9]
@@ -59,7 +59,7 @@ def add_review(request, therapist_id):
         review.pub_date = datetime.datetime.now()
         review.save()
         update_clusters()
-        
+
         return HttpResponseRedirect(reverse('reviews:therapist_detail', args=(therapist.id,)))
 
     return render(request, 'reviews/therapist_detail.html', {'therapist': therapist, 'form': form})
