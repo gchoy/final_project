@@ -1,5 +1,17 @@
 
 
-/*#about_title {
-  color: #33D7FF;
-}*/
+#welcome-title {
+  text-align: left;
+  margin-top: 5%;
+  margin-left: 25%;
+  color: #336BFF;
+  /*color: #ABBCC5;*/
+  font-family: 'Merriweather Sans', sans-serif;
+}
+
+#heart_image {
+  margin-left: 30%;
+  margin-top: 1%;
+  height: 50%;
+
+}

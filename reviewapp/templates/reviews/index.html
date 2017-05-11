@@ -1,5 +1,21 @@
 {% extends 'base.html' %}
 
+{% load bootstrap3 %}
+{% bootstrap_css %}
+
 {% block title %}
+
 <h2>This is a test for the landing page</h2>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4 col-md-3">
+         <img src="/static/images/heart.jpg" alt="hear" style="width:304px;height:228px;">
+    </div>
+  </div>
+</div>
+
+
 {% endblock %}
