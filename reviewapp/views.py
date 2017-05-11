@@ -94,42 +94,15 @@ def user_review_list(request, username=None):
 
 @login_required
 def user_recommendation_list(request):
+    def user_recommendation_list(request):
     # get request user reviewed therapist
     user_reviews = Review.objects.filter(user_name=request.user.username).prefetch_related('therapist')
     # from the reviews, get a set of therapist IDs
     user_reviews_therapist_ids = set(map(lambda x: x.therapist.id, user_reviews))
     # then get a therapist list excluding the previous IDs
-    #therapist_list = Therapist.objects.exclude(id__in=user_reviews_therapist_ids)
-    try:
-        user_cluster_name = \
-            User.objects.get(username=request.user.username).cluster_set.first().name
-    except: # if no cluster has been assigned for a user, update clusters
-        update_clusters()
-        user_cluster_name = \
-            User.objects.get(username=request.user.username).cluster_set.first().name
-
-    # get usernames for other memebers of the cluster
-    user_cluster_other_members = \
-        Cluster.objects.get(name=user_cluster_name).users \
-            .exclude(username=request.user.username).all()
-    other_members_usernames = set(map(lambda x: x.username, user_cluster_other_members))
-
-    # get reviews by those users, excluding wines reviewed by the request user
-    other_users_reviews = \
-        Review.objects.filter(user_name__in=other_members_usernames) \
-            .exclude(therapist__id__in=user_reviews_therapist_ids)
-    other_users_reviews_therapist_ids = set(map(lambda x: x.therapist.id, other_users_reviews))
-
-    # then get a therapist list including the previous IDs, order by rating
-    therapist_list = sorted(
-        list(Therapist.objects.filter(id__in=other_users_reviews_therapist_ids)),
-        key=lambda x: x.average_rating,
-        reverse=True
-    )
-
+    therapist_list = Therapist.objects.exclude(id__in=user_reviews_therapist_ids)
 
     return render(request, 'reviews/user_recommendation_list.html', {'username': request.user.username, 'therapist_list':therapist_list})
-
 @login_required
 def search(request):
     t_list = Therapist.objects.all()
