@@ -21,7 +21,7 @@ def welcome(request):
 def about(request):
     return render(request, 'reviews/about.html')
 
-@login_required
+
 def review_list(request):
     latest_review_list = Review.objects.order_by('-pub_date')[:9]
     context = {'latest_review_list':latest_review_list}
