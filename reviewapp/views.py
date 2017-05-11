@@ -59,9 +59,7 @@ def add_review(request, therapist_id):
         review.pub_date = datetime.datetime.now()
         review.save()
         update_clusters()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
+        
         return HttpResponseRedirect(reverse('reviews:therapist_detail', args=(therapist.id,)))
 
     return render(request, 'reviews/therapist_detail.html', {'therapist': therapist, 'form': form})
@@ -94,15 +92,12 @@ def user_review_list(request, username=None):
 
 @login_required
 def user_recommendation_list(request):
-    
-    # get request user reviewed therapist
-    user_reviews = Review.objects.filter(user_name=request.user.username).prefetch_related('therapist')
-    # from the reviews, get a set of therapist IDs
-    user_reviews_therapist_ids = set(map(lambda x: x.therapist.id, user_reviews))
-    # then get a therapist list excluding the previous IDs
-    therapist_list = Therapist.objects.exclude(id__in=user_reviews_therapist_ids)
 
+    user_reviews = Review.objects.filter(user_name=request.user.username).prefetch_related('therapist')
+    user_reviews_therapist_ids = set(map(lambda x: x.therapist.id, user_reviews))
+    therapist_list = Therapist.objects.exclude(id__in=user_reviews_therapist_ids)
     return render(request, 'reviews/user_recommendation_list.html', {'username': request.user.username, 'therapist_list':therapist_list})
+
 @login_required
 def search(request):
     t_list = Therapist.objects.all()
